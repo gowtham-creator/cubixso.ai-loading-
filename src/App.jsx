@@ -11,13 +11,29 @@ const LS_THEME = 'cubixso.theme';
 
 // ─── Brand mark ────────────────────────────────────────────────────────────
 
+// Cubixso brand mark — isometric cube with corner gaps + inverted Y inside
 const Glyph = ({ size = 18 }) => (
-  <svg width={size} height={size} viewBox="0 0 100 100" fill="none" aria-hidden>
-    <path d="M50 5 L90 27.5 V72.5 L50 95 L10 72.5 V27.5 Z"
-          stroke="currentColor" strokeWidth="5" strokeLinejoin="round" />
-    <path d="M50 5 L50 50 M90 27.5 L50 50 M10 27.5 L50 50"
-          stroke="currentColor" strokeWidth="5" strokeLinejoin="round" />
-    <path d="M50 50 V95" stroke="currentColor" strokeWidth="5" />
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 100 100"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="7"
+    strokeLinecap="square"
+    aria-hidden
+  >
+    {/* Outer hexagonal silhouette — six segments with corner gaps */}
+    <path d="M51 7 L89 30" />
+    <path d="M91 33 L91 67" />
+    <path d="M89 70 L54 91" />
+    <path d="M46 91 L11 70" />
+    <path d="M9 67 L9 33" />
+    <path d="M11 30 L49 7" />
+    {/* Inner Y — three edges meeting at the front-top corner */}
+    <path d="M17 32 L48 40" />
+    <path d="M83 32 L52 40" />
+    <path d="M50 43 L50 88" />
   </svg>
 );
 
