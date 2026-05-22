@@ -1987,18 +1987,19 @@
   }
   .ed-grid > * { position: relative; pointer-events: auto; }
 
-  /* Brand mark — top left */
+  /* Brand mark — top left, sized for legibility */
   .ed-brand {
     grid-area: brand;
     display: inline-flex;
     align-items: center;
-    gap: 10px;
+    gap: 14px;
     align-self: start;
     justify-self: start;
     color: var(--fg);
     font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 0.28em;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.26em;
     animation: ed-fade-down 1s var(--ease-out-expo) .25s both;
   }
 
@@ -2473,7 +2474,7 @@
   /* Phones — tighten everything, hide overflow telemetry */
   @media (max-width: 600px) {
     .ed-grid { padding: 64px 18px 70px; }
-    .ed-brand { font-size: 10.5px; gap: 8px; }
+    .ed-brand { font-size: 13px; gap: 12px; }
     .ed-h { font-size: clamp(36px, 11vw, 56px); line-height: 0.98; }
     .ed-sub { font-size: 14px; line-height: 1.5; }
     .ed-globe-meta { font-size: 8.5px; flex-wrap: wrap; justify-content: center; gap: 8px; }

@@ -222,7 +222,7 @@ export default function App() {
       <main className="ed-grid">
         {/* Brand top-left */}
         <header className="ed-brand">
-          <Glyph size={16} />
+          <Glyph size={28} />
           <span>CUBIXSO.AI</span>
         </header>
 
