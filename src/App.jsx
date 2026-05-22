@@ -11,30 +11,16 @@ const LS_THEME = 'cubixso.theme';
 
 // ─── Brand mark ────────────────────────────────────────────────────────────
 
-// Cubixso brand mark — isometric cube with corner gaps + inverted Y inside
+// Cubixso brand mark — uses the actual logo PNG as a CSS mask so the rendered
+// shape is pixel-accurate to the brand, while `background-color: currentColor`
+// makes it theme-adaptive (white in dark mode, charcoal in light).
 const Glyph = ({ size = 18 }) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 100 100"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="7"
-    strokeLinecap="square"
-    aria-hidden
-  >
-    {/* Outer hexagonal silhouette — six segments with corner gaps */}
-    <path d="M51 7 L89 30" />
-    <path d="M91 33 L91 67" />
-    <path d="M89 70 L54 91" />
-    <path d="M46 91 L11 70" />
-    <path d="M9 67 L9 33" />
-    <path d="M11 30 L49 7" />
-    {/* Inner Y — three edges meeting at the front-top corner */}
-    <path d="M17 32 L48 40" />
-    <path d="M83 32 L52 40" />
-    <path d="M50 43 L50 88" />
-  </svg>
+  <span
+    className="brand-glyph"
+    style={{ width: size, height: size }}
+    role="img"
+    aria-label="Cubixso"
+  />
 );
 
 // Sun + moon icons for theme toggle
@@ -76,7 +62,8 @@ const formatClock = (d) => {
   return `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
 };
 
-const LAUNCH = new Date('2026-09-01T00:00:00Z').getTime();
+// 2.5-day launch window (set per current sprint — bump as needed)
+const LAUNCH = new Date('2026-05-25T08:00:00+05:30').getTime();
 
 function useCountdown(target = LAUNCH) {
   const [now, setNow] = useState(Date.now());

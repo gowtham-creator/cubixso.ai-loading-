@@ -2511,3 +2511,20 @@
     body { overflow-y: auto; overflow-x: hidden; }
     .ed-grid { min-height: 0; padding-top: 70px; padding-bottom: 70px; }
   }
+
+  /* ────────────────────────────────────────────────────────────────────────
+     BRAND GLYPH — masked PNG, pixel-accurate to the brand, theme-adaptive.
+     Uses the actual logo PNG as a luminance mask. White pixels in the PNG
+     reveal the element's background-color (set to currentColor), so the
+     glyph picks up cream in dark theme and charcoal in light.
+     ──────────────────────────────────────────────────────────────────────── */
+  .brand-glyph {
+    display: inline-block;
+    vertical-align: middle;
+    flex-shrink: 0;
+    background-color: currentColor;
+    /* /logo.png is a transparent-background asset, so the default
+       alpha mask mode renders the brand exactly. */
+    -webkit-mask: url(/logo.png) center / contain no-repeat;
+            mask: url(/logo.png) center / contain no-repeat;
+  }
