@@ -62,8 +62,8 @@ const formatClock = (d) => {
   return `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
 };
 
-// Launch window — extended +4 days from prior sprint (was 2026-05-27)
-const LAUNCH = new Date('2026-05-31T08:00:00+05:30').getTime();
+// Launch window — extended +4 days (was 2026-05-31)
+const LAUNCH = new Date('2026-06-04T08:00:00+05:30').getTime();
 
 function useCountdown(target = LAUNCH) {
   const [now, setNow] = useState(Date.now());
