@@ -62,8 +62,8 @@ const formatClock = (d) => {
   return `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
 };
 
-// Launch window — final one-day countdown, then wrap (2026-06-05 08:00 IST)
-const LAUNCH = new Date('2026-06-05T08:00:00+05:30').getTime();
+// Launch window — extended one more day (2026-06-06 08:00 IST)
+const LAUNCH = new Date('2026-06-06T08:00:00+05:30').getTime();
 
 function useCountdown(target = LAUNCH) {
   const [now, setNow] = useState(Date.now());
