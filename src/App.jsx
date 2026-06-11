@@ -62,8 +62,8 @@ const formatClock = (d) => {
   return `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
 };
 
-// Launch window — extended +10h to 2026-06-11 18:00 IST
-const LAUNCH = new Date('2026-06-11T18:00:00+05:30').getTime();
+// Launch window — extended +12h to 2026-06-12 06:00 IST
+const LAUNCH = new Date('2026-06-12T06:00:00+05:30').getTime();
 
 function useCountdown(target = LAUNCH) {
   const [now, setNow] = useState(Date.now());
