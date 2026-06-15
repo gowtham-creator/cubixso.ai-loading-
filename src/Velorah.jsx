@@ -71,11 +71,12 @@ const NAV = ['Services', 'Products', 'Industries', 'Case Studies', 'About', 'Con
 const Navbar = () => (
   <nav className="relative z-20 flex items-center justify-between px-8 py-6 max-w-7xl mx-auto w-full">
     {/* Brand — transparent white cube mark + wordmark */}
-    <a href="#" className="flex items-center gap-2.5">
-      <img src="/logo-white.png" alt="Cubixso" className="h-8 w-auto" />
-      <span className="uv-font-display text-3xl tracking-tight text-white leading-none">Cubixso</span>
+    <a href="#" className="flex shrink-0 items-center gap-2.5">
+      <img src="/logo-white.png" alt="Cubixso" className="h-7 sm:h-8 w-auto" />
+      <span className="uv-font-display text-2xl sm:text-3xl tracking-tight text-white leading-none">Cubixso</span>
     </a>
-    <div className="hidden md:flex items-center gap-9">
+    {/* Links only on lg+ (tablets get the clean logo + button layout). */}
+    <div className="hidden lg:flex items-center gap-8">
       {NAV.map((link, i) => (
         <a
           key={link}
@@ -86,7 +87,7 @@ const Navbar = () => (
         </a>
       ))}
     </div>
-    <button className="uv-liquid-glass rounded-full px-6 py-2.5 text-sm text-white hover:scale-[1.03] transition-transform duration-300 uv-font-body font-medium">
+    <button className="uv-liquid-glass shrink-0 whitespace-nowrap rounded-full px-5 sm:px-6 py-2.5 text-sm text-white hover:scale-[1.03] transition-transform duration-300 uv-font-body font-medium">
       Notify Me
     </button>
   </nav>
@@ -102,16 +103,16 @@ const Countdown = () => {
     { n: String(secs).padStart(2, '0'), l: 'Seconds' },
   ];
   return (
-    <div className="flex items-center justify-center gap-3 sm:gap-5 mt-12 uv-animate-fade-rise-delay">
+    <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-5 mt-12 uv-animate-fade-rise-delay">
       {cells.map((c) => (
         <div
           key={c.l}
-          className="uv-liquid-glass rounded-2xl px-5 sm:px-7 py-4 sm:py-5 flex flex-col items-center min-w-[72px] sm:min-w-[92px]"
+          className="uv-liquid-glass rounded-2xl px-3 sm:px-7 py-3 sm:py-5 flex flex-col items-center min-w-[62px] sm:min-w-[92px]"
         >
-          <span className="uv-font-display text-4xl sm:text-6xl leading-none text-white tabular-nums">
+          <span className="uv-font-display text-3xl sm:text-6xl leading-none text-white tabular-nums">
             {c.n}
           </span>
-          <span className="text-[10px] sm:text-xs uppercase tracking-[0.2em] text-zinc-400 mt-2">
+          <span className="text-[9px] sm:text-xs uppercase tracking-[0.12em] sm:tracking-[0.2em] text-zinc-400 mt-1.5 sm:mt-2">
             {c.l}
           </span>
         </div>
@@ -142,7 +143,9 @@ export const Velorah = () => (
       <Navbar />
 
       <main className="relative z-10 flex flex-col items-center justify-center text-center px-6 flex-grow py-[60px]">
-        <div className="max-w-7xl mx-auto flex flex-col items-center">
+        {/* w-full so the paragraph's max-w shrinks to the viewport on phones
+            (without it the text overflowed and clipped under overflow-hidden). */}
+        <div className="w-full max-w-7xl mx-auto flex flex-col items-center">
           <h2 className="uv-font-display text-5xl sm:text-7xl md:text-8xl leading-[0.95] tracking-[-2.46px] text-white uv-animate-fade-rise font-normal max-w-6xl">
             AI-native technology, <br className="hidden md:block" />
             <em className="not-italic text-zinc-400">arriving soon.</em>
