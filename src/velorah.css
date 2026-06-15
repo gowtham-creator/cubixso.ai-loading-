@@ -1,0 +1,5 @@
+@import "tailwindcss";
+
+/* Full-height root + dark base so there's no white flash before the hero paints. */
+html, body, #app { height: 100%; }
+body { margin: 0; background: #001D33; }
