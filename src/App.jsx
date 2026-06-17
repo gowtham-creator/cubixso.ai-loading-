@@ -63,7 +63,7 @@ const formatClock = (d) => {
 };
 
 // Launch window — extended +1 day to 2026-06-17 06:00 IST
-const LAUNCH = new Date('2026-06-17T06:00:00+05:30').getTime();
+const LAUNCH = new Date('2026-06-18T02:00:00+05:30').getTime();
 
 function useCountdown(target = LAUNCH) {
   const [now, setNow] = useState(Date.now());

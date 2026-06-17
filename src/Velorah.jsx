@@ -6,7 +6,7 @@
 import React, { useState, useEffect } from 'react';
 
 // ── Launch countdown (mirrors the original App.jsx) ─────────────────────────
-const LAUNCH = new Date('2026-06-17T06:00:00+05:30').getTime();
+const LAUNCH = new Date('2026-06-18T02:00:00+05:30').getTime();
 
 function useCountdown(target = LAUNCH) {
   const [now, setNow] = useState(Date.now());
