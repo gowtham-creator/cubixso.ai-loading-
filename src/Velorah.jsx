@@ -3,26 +3,7 @@
 // original: the logo reads "Cubixso" (it's our page) and a countdown row is
 // inserted between the subtext and the CTA. Tailwind v4 (@tailwindcss/vite).
 
-import React, { useState, useEffect } from 'react';
-
-// ── Launch countdown (mirrors the original App.jsx) ─────────────────────────
-const LAUNCH = new Date('2026-06-18T02:00:00+05:30').getTime();
-
-function useCountdown(target = LAUNCH) {
-  const [now, setNow] = useState(Date.now());
-  useEffect(() => {
-    const id = setInterval(() => setNow(Date.now()), 1000);
-    return () => clearInterval(id);
-  }, []);
-  const ms = Math.max(0, target - now);
-  return {
-    days: Math.floor(ms / 86400000),
-    hours: Math.floor((ms % 86400000) / 3600000),
-    mins: Math.floor((ms % 3600000) / 60000),
-    secs: Math.floor((ms % 60000) / 1000),
-    done: ms === 0,
-  };
-}
+import React from 'react';
 
 // ── Embedded styles (verbatim from the uilora component) ────────────────────
 const VelorahStyles = () => (
@@ -71,7 +52,7 @@ const NAV = ['Services', 'Products', 'Industries', 'Case Studies', 'About', 'Con
 // The live site to open when the visitor clicks "Launch". Override per
 // environment with VITE_SITE_URL (e.g. the Vercel deployment URL); defaults to
 // the production domain.
-const SITE_URL = import.meta.env.VITE_SITE_URL || 'https://cubixso.com';
+const SITE_URL = import.meta.env.VITE_SITE_URL || 'https://app.cubixso.com';
 
 const Navbar = () => (
   <nav className="relative z-20 flex items-center justify-between px-8 py-6 max-w-7xl mx-auto w-full">
@@ -100,34 +81,6 @@ const Navbar = () => (
     </a>
   </nav>
 );
-
-// The dropped-in countdown row — liquid-glass tiles, matching the uv look.
-const Countdown = () => {
-  const { days, hours, mins, secs } = useCountdown();
-  const cells = [
-    { n: String(days).padStart(2, '0'), l: 'Days' },
-    { n: String(hours).padStart(2, '0'), l: 'Hours' },
-    { n: String(mins).padStart(2, '0'), l: 'Minutes' },
-    { n: String(secs).padStart(2, '0'), l: 'Seconds' },
-  ];
-  return (
-    <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-5 mt-12 uv-animate-fade-rise-delay">
-      {cells.map((c) => (
-        <div
-          key={c.l}
-          className="uv-liquid-glass rounded-2xl px-3 sm:px-7 py-3 sm:py-5 flex flex-col items-center min-w-[62px] sm:min-w-[92px]"
-        >
-          <span className="uv-font-display text-3xl sm:text-6xl leading-none text-white tabular-nums">
-            {c.n}
-          </span>
-          <span className="text-[9px] sm:text-xs uppercase tracking-[0.12em] sm:tracking-[0.2em] text-zinc-400 mt-1.5 sm:mt-2">
-            {c.l}
-          </span>
-        </div>
-      ))}
-    </div>
-  );
-};
 
 export const Velorah = () => (
   <div className="relative min-h-screen w-full bg-[#001D33] overflow-hidden flex flex-col uv-font-body selection:bg-white selection:text-[#001D33]">
@@ -165,14 +118,12 @@ export const Velorah = () => (
             engineered across Hyderabad, the UAE, and the US.
           </p>
 
-          {/* ── Dropped-in launch countdown ── */}
-          <Countdown />
-
           <a
             href={SITE_URL}
-            className="uv-liquid-glass rounded-full px-14 py-5 text-base text-white mt-12 hover:scale-[1.03] active:scale-[0.98] transition-all duration-300 cursor-pointer uv-animate-fade-rise-delay-2 font-medium tracking-wide"
+            className="group inline-flex items-center gap-3 rounded-full bg-white text-[#001D33] px-16 sm:px-20 py-5 sm:py-6 text-lg sm:text-xl mt-16 font-semibold tracking-wide shadow-[0_12px_50px_-6px_rgba(255,255,255,0.5)] hover:shadow-[0_18px_64px_-4px_rgba(255,255,255,0.75)] hover:scale-[1.04] active:scale-[0.98] transition-all duration-300 cursor-pointer uv-animate-fade-rise-delay-2"
           >
             Launch
+            <span className="transition-transform duration-300 group-hover:translate-x-1.5">→</span>
           </a>
         </div>
       </main>
