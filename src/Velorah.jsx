@@ -68,6 +68,11 @@ const VelorahStyles = () => (
 
 const NAV = ['Services', 'Products', 'Industries', 'Case Studies', 'About', 'Contact'];
 
+// The live site to open when the visitor clicks "Launch". Override per
+// environment with VITE_SITE_URL (e.g. the Vercel deployment URL); defaults to
+// the production domain.
+const SITE_URL = import.meta.env.VITE_SITE_URL || 'https://cubixso.com';
+
 const Navbar = () => (
   <nav className="relative z-20 flex items-center justify-between px-8 py-6 max-w-7xl mx-auto w-full">
     {/* Brand — transparent white cube mark + wordmark */}
@@ -87,9 +92,12 @@ const Navbar = () => (
         </a>
       ))}
     </div>
-    <button className="uv-liquid-glass shrink-0 whitespace-nowrap rounded-full px-5 sm:px-6 py-2.5 text-sm text-white hover:scale-[1.03] transition-transform duration-300 uv-font-body font-medium">
-      Notify Me
-    </button>
+    <a
+      href={SITE_URL}
+      className="uv-liquid-glass shrink-0 whitespace-nowrap rounded-full px-5 sm:px-6 py-2.5 text-sm text-white hover:scale-[1.03] transition-transform duration-300 uv-font-body font-medium"
+    >
+      Launch
+    </a>
   </nav>
 );
 
@@ -148,23 +156,23 @@ export const Velorah = () => (
         <div className="w-full max-w-7xl mx-auto flex flex-col items-center">
           <h2 className="uv-font-display text-5xl sm:text-7xl md:text-8xl leading-[0.95] tracking-[-2.46px] text-white uv-animate-fade-rise font-normal max-w-6xl">
             AI-native technology, <br className="hidden md:block" />
-            <em className="not-italic text-zinc-400">arriving soon.</em>
+            <em className="not-italic text-zinc-400">now live.</em>
           </h2>
 
           <p className="text-zinc-400 text-base sm:text-lg max-w-2xl mt-12 leading-relaxed uv-animate-fade-rise-delay font-light">
-            Cubixso.ai is almost here — an AI-native technology company building agentic
-            systems, RAG platforms, and education technology for the autonomous enterprise.
-            Engineered across Hyderabad, the UAE, and the US.
+            The Cubixso website is now live. Step inside our AI-native world of agentic
+            systems, RAG platforms, and education technology for the autonomous enterprise,
+            engineered across Hyderabad, the UAE, and the US.
           </p>
 
           {/* ── Dropped-in launch countdown ── */}
           <Countdown />
 
           <a
-            href="mailto:contact@cubixso.com?subject=Cubixso.ai%20%E2%80%94%20notify%20me%20on%20launch"
+            href={SITE_URL}
             className="uv-liquid-glass rounded-full px-14 py-5 text-base text-white mt-12 hover:scale-[1.03] active:scale-[0.98] transition-all duration-300 cursor-pointer uv-animate-fade-rise-delay-2 font-medium tracking-wide"
           >
-            Notify Me on Launch
+            Launch
           </a>
         </div>
       </main>
