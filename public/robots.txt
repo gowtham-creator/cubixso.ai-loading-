@@ -1,0 +1,8 @@
+# cubixso.com — launch page. The full site lives at app.cubixso.com; both
+# sitemaps are listed so either host can be discovered from this one.
+User-agent: *
+Allow: /
+
+Host: https://cubixso.com
+Sitemap: https://cubixso.com/sitemap.xml
+Sitemap: https://app.cubixso.com/sitemap.xml

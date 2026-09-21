@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Cubixso.ai — Generative AI for the autonomous enterprise</title>
 <meta name="description" content="Cubixso.ai builds intelligent AI systems, agentic products, RAG platforms, and enterprise applications — engineered for scale and impact." />
+<link rel="canonical" href="https://cubixso.com/" />
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
 
 <!-- Favicons — the brand cube on transparent background -->
 <link rel="icon" type="image/png" sizes="any" href="/logo.png" />
@@ -13,12 +15,16 @@
 <!-- Open Graph / Twitter -->
 <meta property="og:title" content="Cubixso.ai — Generative AI for the autonomous enterprise" />
 <meta property="og:description" content="Intelligent AI systems, agentic products, RAG platforms, and enterprise applications, engineered for scale and impact." />
-<meta property="og:image" content="/logo-on-dark.png" />
+<!-- Absolute URLs: Facebook, LinkedIn, X and Slack do not resolve root-relative
+     og:image paths, so the relative versions produced no preview card at all. -->
+<meta property="og:image" content="https://cubixso.com/logo-on-dark.png" />
+<meta property="og:url" content="https://cubixso.com/" />
+<meta property="og:site_name" content="Cubixso.ai" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Cubixso.ai — Generative AI for the autonomous enterprise" />
 <meta name="twitter:description" content="Intelligent AI systems, agentic products, RAG platforms, and enterprise applications, engineered for scale and impact." />
-<meta name="twitter:image" content="/logo-on-dark.png" />
+<meta name="twitter:image" content="https://cubixso.com/logo-on-dark.png" />
 
 <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
 <meta name="theme-color" content="#f4f1ea" media="(prefers-color-scheme: light)" />
@@ -30,7 +36,50 @@
 <body data-theme="dark" data-background="solid">
 
 <div class="hairline-grid"></div>
-<div id="app"></div>
+
+<!-- Crawlable fallback. This is a Vite SPA: the served HTML was 2,114 bytes with
+     an empty #app, no <h1>, and no <a href> — so Googlebot's first-wave crawl
+     saw no content and, critically, no link to the real site at
+     app.cubixso.com. The "Launch" button only exists after React mounts, so
+     there was no discovery path to the actual website at all.
+
+     React replaces this markup on mount. It deliberately restates exactly what
+     the rendered page says (same headline, same copy, same single Launch link),
+     so it is a pre-hydration fallback and not cloaking — crawler and visitor
+     are shown the same thing. Keep it in sync if Velorah's copy changes. -->
+<div id="app">
+  <h1>Cubixso.ai — AI-native technology, now live</h1>
+  <p>
+    The Cubixso website is now live. Step inside our AI-native world of agentic
+    systems, RAG platforms, and education technology for the autonomous
+    enterprise, engineered across Hyderabad, the UAE, and the US.
+  </p>
+  <p><a href="https://app.cubixso.com">Launch the Cubixso website</a></p>
+</div>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": "https://cubixso.com/#organization",
+  "name": "Cubixso.ai",
+  "alternateName": "Cubixso",
+  "legalName": "Cubixso Solutions Private Limited",
+  "url": "https://cubixso.com/",
+  "logo": "https://cubixso.com/logo.png",
+  "email": "contact@cubixso.com",
+  "description": "Cubixso.ai builds intelligent AI systems, agentic products, RAG platforms, and enterprise applications — engineered for scale and impact.",
+  "foundingDate": "2024-07-26",
+  "identifier": [
+    { "@type": "PropertyValue", "name": "CIN", "value": "U63999TS2024PTC187911" },
+    { "@type": "PropertyValue", "name": "GSTIN", "value": "36AAMCC0213G1Z2" }
+  ],
+  "sameAs": [
+    "https://www.linkedin.com/company/cubixso.ai",
+    "https://www.instagram.com/cubixso.ai/"
+  ]
+}
+</script>
 
 <script type="module" src="/src/main.jsx"></script>
 </body>
