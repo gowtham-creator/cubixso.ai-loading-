@@ -82,16 +82,64 @@ const Navbar = () => (
   </nav>
 );
 
-export const Velorah = () => (
+// iOS autoplay: React sets the `muted` PROPERTY but does not reliably emit the
+// `muted` ATTRIBUTE, and iOS Safari gates inline autoplay on the attribute being
+// present at the time play() is evaluated. Result on iPhone: play() rejects, the
+// video never paints, and the page shows bare #001D33 — the "no background on
+// mobile" report. Setting muted/defaultMuted/playsInline imperatively before
+// calling play(), then retrying on the first touch, is what actually works.
+// The poster keeps a real background on screen in the cases autoplay can never
+// win (Low Power Mode, Data Saver, a slow or blocked CloudFront fetch).
+function useBackgroundVideo() {
+  const ref = React.useRef(null);
+
+  React.useEffect(() => {
+    const v = ref.current;
+    if (!v) return;
+
+    v.muted = true;
+    v.defaultMuted = true;
+    v.playsInline = true;
+    v.setAttribute('muted', '');
+    v.setAttribute('playsinline', '');
+
+    let cleanup = () => {};
+    v.play().catch(() => {
+      // Autoplay refused — arm a one-shot gesture retry.
+      const onGesture = () => {
+        v.play().catch(() => {});
+        cleanup();
+      };
+      window.addEventListener('pointerdown', onGesture, { once: true, passive: true });
+      window.addEventListener('touchstart', onGesture, { once: true, passive: true });
+      cleanup = () => {
+        window.removeEventListener('pointerdown', onGesture);
+        window.removeEventListener('touchstart', onGesture);
+      };
+    });
+
+    return () => cleanup();
+  }, []);
+
+  return ref;
+}
+
+export const Velorah = () => {
+  const videoRef = useBackgroundVideo();
+
+  return (
   <div className="relative min-h-screen w-full bg-[#001D33] overflow-hidden flex flex-col uv-font-body selection:bg-white selection:text-[#001D33]">
     <VelorahStyles />
 
     {/* Background Video (uilora demo asset, kept as-is) */}
     <video
+      ref={videoRef}
       autoPlay
       muted
       loop
       playsInline
+      preload="auto"
+      poster="/velorah-poster.jpg"
       className="absolute inset-0 w-full h-full object-cover z-0 grayscale-[0.2] brightness-75"
     >
       <source
@@ -131,6 +179,7 @@ export const Velorah = () => (
 
     <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-transparent via-transparent to-black/30 z-[1]" />
   </div>
-);
+  );
+};
 
 export default Velorah;
