@@ -23,16 +23,37 @@ export function DottedSurface({ theme = 'dark', className = '' }) {
     const scene = new THREE.Scene();
     scene.fog = new THREE.Fog(0xffffff, 2000, 10000);
 
-    const camera = new THREE.PerspectiveCamera(
-      60,
-      window.innerWidth / window.innerHeight,
-      1,
-      10000,
-    );
+    // HORIZONTAL-FOV LOCK. PerspectiveCamera's fov is VERTICAL, so with a fixed
+    // 60 the horizontal field shrinks in proportion to the aspect ratio. On a
+    // portrait phone (~0.46) that is roughly a third of the desktop (~1.6)
+    // horizontal view, and the 6000-unit-wide dot grid falls almost entirely
+    // outside the frustum — the background renders but nothing of it is on
+    // screen, which is the "background not visible on mobile/tablet" report.
+    //
+    // Widening the vertical fov on narrow viewports keeps the same horizontal
+    // extent visible at every aspect. Landscape/desktop is untouched (the
+    // branch only fires below the reference aspect), so the original framing is
+    // preserved exactly where it already worked.
+    const BASE_FOV = 60;
+    const BASE_ASPECT = 16 / 9;
+    const fovFor = (aspect) =>
+      aspect >= BASE_ASPECT
+        ? BASE_FOV
+        : (2 *
+            Math.atan(
+              Math.tan((BASE_FOV * Math.PI) / 180 / 2) * (BASE_ASPECT / aspect),
+            ) *
+            180) /
+          Math.PI;
+
+    const aspect0 = window.innerWidth / window.innerHeight;
+    const camera = new THREE.PerspectiveCamera(fovFor(aspect0), aspect0, 1, 10000);
     camera.position.set(0, 355, 1220);
 
     const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-    renderer.setPixelRatio(window.devicePixelRatio);
+    // Cap DPR: phones report 3, and a 3x full-screen canvas with antialias on
+    // top of 2400 animated points is a lot of fill for a splash screen.
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setClearColor(scene.fog.color, 0);
 
@@ -98,7 +119,11 @@ export function DottedSurface({ theme = 'dark', className = '' }) {
     };
 
     const handleResize = () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
+      const aspect = window.innerWidth / window.innerHeight;
+      camera.aspect = aspect;
+      // Recompute fov too — a phone rotating portrait<->landscape changes the
+      // aspect enough that a fixed fov would re-lose the field.
+      camera.fov = fovFor(aspect);
       camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
     };
